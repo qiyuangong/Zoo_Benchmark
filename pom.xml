@@ -12,7 +12,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bigdl.version>0.10.0</bigdl.version>
-        <spark.version>2.4.0</spark.version>
+	<spark.major.version>2.4</spark.major.version>
+	<spark.version>2.4.3</spark.version>
+	<scala.major.version>2.11</scala.major.version>
+	<scala.version>2.11.8</scala.version>
     </properties>
 
     <repositories>
@@ -33,23 +36,23 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
-            <version>2.11.12</version>
+	    <version>${scala.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.11</artifactId>
+	    <artifactId>spark-core_${scala.major.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-mllib_2.11</artifactId>
+	    <artifactId>spark-mllib_${scala.major.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
         <dependency>
             <groupId>com.intel.analytics.bigdl</groupId>
-            <artifactId>bigdl-SPARK_2.3</artifactId>
+	    <artifactId>bigdl-SPARK_${spark.major.version}</artifactId>
             <version>${bigdl.version}</version>
         </dependency>
         <dependency>

@@ -1,4 +1,4 @@
-# Analytics-Zoo Perf
+# Analytics-Zoo Benchmark
 
 This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet, TorchNet and OpenVINO backend. Currently, it supports image classification inference.
 
