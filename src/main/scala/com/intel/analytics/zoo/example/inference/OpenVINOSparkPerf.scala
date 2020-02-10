@@ -8,22 +8,35 @@ import com.intel.analytics.zoo.example.inference.PerfUtils.{time, get_throughput
 object OpenVINOSparkPerf {
   def main(argv: Array[String]): Unit = {
     val params = parser.parse(argv, new PerfParams).get
+
+    val sc = NNContext.initNNContext("OpenVINO Perf on Spark")
+    // Load model
     val model = new InferenceModel(1)
     val weight = params.model.substring(0,
       params.model.lastIndexOf(".")) + ".bin"
     model.doLoadOpenVINO(params.model, weight, params.batchSize)
+    // BroadCast model
+    val bcModel = sc.broadcast(model)
+    // Register Accumulator
+    val accPredict = new DoubleAccumulator
+    sc.register(accPredict, "Predict Time")
 
+    // Prepare Test RDD
     val input = Tensor[Float](Array(1, params.batchSize, 224, 224, 3)).rand(0, 255)
 
+    val testData = sc.parallelize(input)
     // warm up
-    time(model.doPredict(input), get_throughput(params.batchSize), 10, false)
+
+
+    testData.mapPartition()
+      model.doPredict(input)
 
     // do the true performance
-    time(model.doPredict(input), get_throughput(params.batchSize), params.iteration, true)
+
   }
 
 
-  val parser: OptionParser[PerfParams] = new OptionParser[PerfParams]("OpenVINO w/ Dnn Local Model Performance Test") {
+  val parser: OptionParser[PerfParams] = new OptionParser[PerfParams]("OpenVINO w/ Dnn Spark Model Performance Test") {
     opt[String]('m', "model")
       .text("serialized model, which is protobuf format")
       .action((v, p) => p.copy(model = v))

@@ -3,42 +3,30 @@ package com.intel.analytics.zoo.example.inference
 
 import com.intel.analytics.bigdl.tensor.Tensor
 import com.intel.analytics.bigdl.utils.Engine
-import com.intel.analytics.zoo.common.NNContext
 import com.intel.analytics.zoo.pipeline.inference.InferenceModel
+import com.intel.analytics.zoo.example.inference.PerfUtils.{time, get_throughput}
 import org.apache.log4j.Logger
-import org.apache.spark.util.DoubleAccumulator
 import scopt.OptionParser
 
 object OpenVINOPerf {
   def main(argv: Array[String]): Unit = {
     val params = parser.parse(argv, new PerfParams).get
-
-    val sc = NNContext.initNNContext("OpenVINO Perf on Spark")
-    // Load model
     val model = new InferenceModel(1)
     val weight = params.model.substring(0,
       params.model.lastIndexOf(".")) + ".bin"
     model.doLoadOpenVINO(params.model, weight, params.batchSize)
-    // BroadCast model
-    val bcModel = sc.broadcast(model)
-    // Register Accumulator
-    val accPredict = new DoubleAccumulator
-    sc.register(accPredict, "Predict Time")
 
-    // Prepare Test RDD
     val input = Tensor[Float](Array(1, params.batchSize, 224, 224, 3)).rand(0, 255)
 
-    val testData =
     // warm up
-
-    model.doPredict(input)
+    time(model.doPredict(input), get_throughput(params.batchSize), 10, false)
 
     // do the true performance
-
+    time(model.doPredict(input), get_throughput(params.batchSize), params.iteration, true)
   }
 
 
-  val parser: OptionParser[PerfParams] = new OptionParser[PerfParams]("OpenVINO w/ Dnn Spark Model Performance Test") {
+  val parser: OptionParser[PerfParams] = new OptionParser[PerfParams]("OpenVINO w/ Dnn Local Model Performance Test") {
     opt[String]('m', "model")
       .text("serialized model, which is protobuf format")
       .action((v, p) => p.copy(model = v))
