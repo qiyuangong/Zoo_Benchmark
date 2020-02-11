@@ -7,5 +7,6 @@ case class PerfParams (
                         model: String = "resnet50",
                         quantize: Boolean = false,
                         outputFormat: String = "nc",
+                        numInstance: Int = 1,
                         coreNumber: Int = 18
                       )

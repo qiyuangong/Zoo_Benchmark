@@ -26,18 +26,47 @@ object OpenVINOSparkPerf {
     val accPredict = new DoubleAccumulator
     sc.register(accPredict, "Predict Time")
 
+    // Prepare warm up data
+    val warm = (0 until 10).map { _ =>
+      Tensor[Float](Array(1, params.batchSize, 224, 224, 3)).rand(0, 255)
+    }
+
     // Prepare Test RDD
-    val input = Tensor[Float](Array(1, params.batchSize, 224, 224, 3)).rand(0, 255)
-
-    val testData = sc.parallelize(input)
+    val data = (0 until params.iteration).map { _ =>
+      Tensor[Float](Array(1, params.batchSize, 224, 224, 3)).rand(0, 255)
+    }
+    val warmData = sc.parallelize(warm, numSlices = params.numInstance)
+    val testData = sc.parallelize(data, numSlices = params.numInstance)
     // warm up
-
-
-    testData.mapPartition()
-      model.doPredict(input)
+    testData.mapPartitions { p =>
+      p.map { b =>
+        // Get model
+        val localModel = bcModel.value
+        // Batch inference
+        localModel.doPredict(b)
+      }
+    }
 
     // do the true performance
-
+    accPredict.reset()
+    val startTime = System.nanoTime()
+    testData.mapPartitions { p =>
+      p.map { b =>
+        // Get model
+        val localModel = bcModel.value
+        // Batch inference
+        val ps = System.nanoTime()
+        localModel.doPredict(b)
+        val predictTime = (System.nanoTime() - ps) / 1e6
+        accPredict.add(predictTime)
+      }
+    }
+    val totalTime = (System.nanoTime() - startTime) / 1e6
+    val averageBatch = accPredict.value / params.iteration
+    val throughput = 1000 * params.batchSize * params.iteration / totalTime
+    logger.info(s"Total Predict Time: $totalTime ms")
+    logger.info(s"Total Throughput: $throughput FPS")
+    logger.info(s"Average Batch Predict Time: $averageBatch ms")
   }
 
 
@@ -46,6 +75,10 @@ object OpenVINOSparkPerf {
       .text("serialized model, which is protobuf format")
       .action((v, p) => p.copy(model = v))
       .required()
+
+    opt[Int]('n', "numInstance")
+      .text("Number of instance")
+      .action((v, p) => p.copy(numInstance = v))
 
     opt[Int]('b', "batchSize")
       .text("Batch size of input data")
