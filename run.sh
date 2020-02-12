@@ -82,6 +82,6 @@ fi
 
 
 # for maven
-JAR=target/inference-0.1.0-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/inference-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 
 java ${OPTIONS} -cp ${JAR} ${CLASS} -m ${MODEL} --iteration ${ITER} --batchSize ${BS} ${PARM}
