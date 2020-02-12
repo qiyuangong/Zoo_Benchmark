@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # debug flag
-#set -x
+set -x
 
 HYPER=1
 CPU=$(($(nproc) / HYPER))
@@ -12,13 +12,12 @@ echo "Core number ${CPU}"
 # export SPARK_HOME=./spark-2.3.3-bin-hadoop2.7
 export ANALYTICS_ZOO_HOME=~/zoo-bin
 
-export MASTER=local[${CPU}]
+export MASTER="spark://localhost:7077"
 
 #export OMP_NUM_THREADS=${CPU}
 export KMP_BLOCKTIME=20
 
 ITER=100
-
 NUM_EXECUTORS=1
 
 usage()
@@ -61,20 +60,20 @@ then
     PARAMS="$5"
 fi
 
-export ZOO_NUM_MKLTHREADS=${CPU}/${NUM_EXECUTORS}
+ZOO_NUM_MKLTHREADS=$((CPU/NUM_EXECUTORS))
 
 CLASS=com.intel.analytics.zoo.example.inference.OpenVINOSparkPerf
-
 
 # for maven
 JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 
-echo ${NUM_EXECUTORS}
-
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
-  --driver-memory 100g \
+  --driver-memory 10g \
+  --executor-memory 40g \
   --num-executors ${NUM_EXECUTORS} \
+  --executor-cores $((CPU/NUM_EXECUTORS)) \
+  --total-executor-cores ${CPU} \
   --class ${CLASS} ${JAR} \
   -m ${MODEL} --iteration ${ITER} --batchSize ${BS} -n ${NUM_EXECUTORS}
 
