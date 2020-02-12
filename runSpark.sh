@@ -12,9 +12,9 @@ echo "Core number ${CPU}"
 # export SPARK_HOME=./spark-2.3.3-bin-hadoop2.7
 export ANALYTICS_ZOO_HOME=~/zoo-bin
 
-export MASTER=local[*]
+export MASTER=local[${CPU}]
 
-export OMP_NUM_THREADS=${CPU}
+#export OMP_NUM_THREADS=${CPU}
 export KMP_BLOCKTIME=20
 
 ITER=100
@@ -29,7 +29,7 @@ usage()
        3. Iteration, optional, default 100
        4. Numer of executors, optional, default 1
        as parameters in order. More concretely, you can run this command:
-       bash run.sh \\
+       bash runSpark.sh \\
             openvinomodel.xml \\
             64 \\
             100 \\
@@ -60,6 +60,8 @@ if [ "$#" -gt 4 ]
 then
     PARAMS="$5"
 fi
+
+export ZOO_NUM_MKLTHREADS=${CPU}/${NUM_EXECUTORS}
 
 CLASS=com.intel.analytics.zoo.example.inference.OpenVINOSparkPerf
 

@@ -19,7 +19,7 @@ Build jar with following command:
 
 `mvn clean package`
 
-## Usage
+## Usage for Pure JAVA Benchmark
 
 ```shell
 usage:
@@ -36,6 +36,22 @@ usage:
 ```
 
 `bash run.sh bigdl analytics-zoo_resnet-50_imagenet_0.1.0.model 10 64`
+
+## Usage for Spark OpenVINO Benchmark
+
+```shell
+usage:
+       1. Model path, e.g., *.model, *.xml
+       2. Batch Size, e.g., 32
+       3. Iteration, optional, default 100
+       4. Numer of executors, optional, default 1
+       as parameters in order. More concretely, you can run this command:
+       bash runSpark.sh \\
+            openvinomodel.xml \\
+            64 \\
+            100 \\
+            2
+```
 
 ## Other Details
 

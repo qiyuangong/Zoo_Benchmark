@@ -59,8 +59,10 @@ object OpenVINOSparkPerf {
         localModel.doPredict(b)
         val predictTime = (System.nanoTime() - ps) / 1e6
         accPredict.add(predictTime)
+        println(s"### Predict time $predictTime ms")
+        (0 until 1)
       }
-    }
+    }.count()
     val totalTime = (System.nanoTime() - startTime) / 1e6
     val averageBatch = accPredict.value / params.iteration
     val throughput = 1000 * params.batchSize * params.iteration / totalTime
