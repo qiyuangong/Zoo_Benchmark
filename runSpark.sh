@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # debug flag
-set -x
+#set -x
 
 HYPER=1
 CPU=$(($(nproc) / HYPER))
@@ -60,7 +60,7 @@ then
     PARAMS="$5"
 fi
 
-ZOO_NUM_MKLTHREADS=$((CPU/NUM_EXECUTORS))
+export ZOO_NUM_MKLTHREADS=$((CPU/NUM_EXECUTORS))
 
 CLASS=com.intel.analytics.zoo.example.inference.OpenVINOSparkPerf
 
@@ -69,7 +69,7 @@ JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
-  --driver-memory 10g \
+  --driver-memory 20g \
   --executor-memory 40g \
   --num-executors ${NUM_EXECUTORS} \
   --executor-cores $((CPU/NUM_EXECUTORS)) \

@@ -39,7 +39,7 @@ usage:
 
 ## Usage for Spark OpenVINO Benchmark
 
-Note that local model doesn't support multiple executors. Please launch a standalone Spark.
+**Note that local model doesn't support multiple executors. Please launch a standalone Spark.**
 
 ```shell
 usage:
