@@ -41,6 +41,8 @@ usage:
 
 **Note that local model doesn't support multiple executors. Please launch a standalone Spark.**
 
+If your model is too large to Spark broadcast, pls change `spark.rpc.message.maxSize`.
+
 ```shell
 usage:
        1. Model path, e.g., *.model, *.xml
