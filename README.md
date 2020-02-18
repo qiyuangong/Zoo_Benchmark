@@ -39,6 +39,17 @@ usage:
 
 ## Usage for Spark OpenVINO Benchmark
 
+Create random data in multiple partitions, then running benchmark with multiple executors.
+
+### Multiple nodes
+
+Zoo will broadcast model to multiple nodes. No further configuration is necessary.
+
+### Single Node
+
+1. Single worker (single slave)
+2. Multiple workers (multiple slave instance)
+
 **Note that local model doesn't support multiple executors. Please launch a standalone Spark.**
 
 If your model is too large to Spark broadcast, pls change `spark.rpc.message.maxSize`.
