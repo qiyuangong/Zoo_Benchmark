@@ -50,6 +50,8 @@ Zoo will broadcast model to multiple nodes. No further configuration is necessar
 1. Single worker (single slave)
 2. Multiple workers (multiple slave instance)
 
+Pls place worker and executors in docker containers. Otherwise, OMP related environment may conflict and lead to low CPU usage.
+
 **Note that local model doesn't support multiple executors. Please launch a standalone Spark.**
 
 If your model is too large to Spark broadcast, pls change `spark.rpc.message.maxSize`.
