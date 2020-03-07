@@ -77,4 +77,3 @@ ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --conf spark.rpc.message.maxSize=2047
   --class ${CLASS} ${JAR} \
   -m ${MODEL} --iteration ${ITER} --batchSize ${BS} -n ${NUM_EXECUTORS}
-

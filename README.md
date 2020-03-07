@@ -47,10 +47,12 @@ Zoo will broadcast model to multiple nodes. No further configuration is necessar
 
 ### Single Node
 
+Not recommended. OMP instance may conflict with each other.
+
+_Pls place worker/executors in diferent containers or binding them to different numa node with numactl. Otherwise, OMP related environment may conflict and lead to low CPU usage._
+
 1. Single worker (single slave)
 2. Multiple workers (multiple slave instance)
-
-Pls place worker and executors in docker containers. Otherwise, OMP related environment may conflict and lead to low CPU usage.
 
 **Note that local model doesn't support multiple executors. Please launch a standalone Spark.**
 
@@ -76,6 +78,6 @@ usage:
    time model computing takes, which means it measures the forward without
    pre-processing. The input of model is a dummy random tensor.
 
-2. Pay attention to `${CPU}` in `run.sh`. Sometimes it will get wrong number.
+2. Pay attention to `${CPU}` in `run.sh`. Sometimes it will get wrong number because of HT.
 
 3. Change `HYPER=2` in `run.sh` if hyper-threading is on.
