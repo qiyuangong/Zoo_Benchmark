@@ -81,3 +81,5 @@ usage:
 2. Pay attention to `${CPU}` in `run.sh`. Sometimes it will get wrong number because of HT.
 
 3. Change `HYPER=2` in `run.sh` if hyper-threading is on.
+
+4. `warm up` in benchmark. The performance of first several batches may not stable. So, we added 10 batches for warm up. Their performance will not be taken into account.
