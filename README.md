@@ -41,6 +41,13 @@ usage:
 
 Create random data in multiple partitions, then running benchmark with multiple executors.
 
+
+Default configurtion:
+
+1. Driver 20g memory
+2. Executor 30g memory
+3. Executor core=`${CORE_NUM}/${NUM_EXECUTORS}`
+
 ### Multiple nodes
 
 Zoo will broadcast model to multiple nodes. No further configuration is necessary.

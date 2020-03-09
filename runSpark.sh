@@ -70,10 +70,10 @@ JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
   --driver-memory 20g \
-  --executor-memory 40g \
+  --executor-memory 30g \
   --num-executors ${NUM_EXECUTORS} \
   --executor-cores $((CPU/NUM_EXECUTORS)) \
   --total-executor-cores ${CPU} \
-  --conf spark.rpc.message.maxSize=2047
+  --conf spark.rpc.message.maxSize=2047 \
   --class ${CLASS} ${JAR} \
   -m ${MODEL} --iteration ${ITER} --batchSize ${BS} -n ${NUM_EXECUTORS}
