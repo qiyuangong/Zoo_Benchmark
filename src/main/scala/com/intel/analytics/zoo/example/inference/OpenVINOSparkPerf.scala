@@ -13,6 +13,10 @@ import org.apache.spark.util.DoubleAccumulator
 object OpenVINOSparkPerf {
   def main(argv: Array[String]): Unit = {
     val params = parser.parse(argv, new PerfParams).get
+    if (env.contains("OMP_NUM_THREADS")) {
+      val numCores = env("OMP_NUM_THREADS").toInt
+      System.setProperty("bigdl.mklNumThreads", numCores.toString)
+    }
 
     val sc = NNContext.initNNContext("OpenVINO Perf on Spark")
     // Load model
