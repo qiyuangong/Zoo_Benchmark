@@ -24,7 +24,7 @@ object OpenVINOPerf {
     // do the true performance
     // Benchmark start
     val predictStart = System.nanoTime()
-    time(model.doPredict(input), get_throughput(batchSize), iteration, true)
+    time(model.doPredict(input), get_throughput(params.batchSize), params.iteration, true)
     val totalTimeUsed = System.nanoTime() - predictStart
     val totalThroughput = "%.2f".format(params.batchSize * params.iteration.toFloat / (totalTimeUsed / 1e9))
     logger.info(s"*****************************************************")

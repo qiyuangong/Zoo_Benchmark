@@ -8,11 +8,18 @@ CORES=$(($(nproc) / HYPER))
 
 if [[ -z "${KMP_AFFINITY}" ]]; then
   KMP_AFFINITY=granularity=fine,compact
-  if [[HYPER==2]]; then
+  if [[ $HYPER==2 ]]; then
     KMP_AFFINITY=${KMP_AFFINITY},1,0
   fi
 fi
 echo "Hardware Core number ${CORES}"
+
+#export OMP_NUM_THREADS=${CPU}
+#export OMP_PROC_BIND=spread
+#export KMP_AFFINITY=verbose,disabled
+#export KMP_AFFINITY=verbose,granularity=fine,compact,1,0
+export KMP_AFFINITY=verbose,granularity=fine,compact
+#export KMP_AFFINITY=verbose,granularity=fine
 
 usage()
 {
@@ -72,7 +79,7 @@ case $TYPE in
   "ov" | "OV")
     echo "Analytics-Zoo with OpenVINO"
     CLASS=com.intel.analytics.zoo.benchmark.inference.OpenVINOPerf
-    export OMP_NUM_THREADS=${CORES}
+    #export OMP_NUM_THREADS=${CORES}
     export KMP_BLOCKTIME=20
     ;;
 

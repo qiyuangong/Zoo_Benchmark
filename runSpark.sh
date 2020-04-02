@@ -8,7 +8,7 @@ CORES=$(($(nproc) / HYPER))
 
 if [[ -z "${KMP_AFFINITY}" ]]; then
   KMP_AFFINITY=granularity=fine,compact
-  if [[HYPER==2]]; then
+  if [[ $HYPER==2 ]]; then
     KMP_AFFINITY=${KMP_AFFINITY},1,0
   fi
 fi
@@ -22,8 +22,12 @@ export ANALYTICS_ZOO_HOME=~/zoo-bin
 export MASTER="spark://localhost:7077"
 
 #export OMP_NUM_THREADS=${CORES}
+#export OMP_PROC_BIND=spread
+export KMP_AFFINITY=disabled
+#export KMP_AFFINITY=verbose,granularity=fine,compact,1,0
+#export KMP_AFFINITY=verbose,granularity=fine
 export KMP_BLOCKTIME=20
-
+export KMP_SETTING=1
 ITER=100
 NUM_EXECUTORS=1
 
@@ -81,6 +85,6 @@ ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --num-executors ${NUM_EXECUTORS} \
   --executor-cores $((CORES/NUM_EXECUTORS)) \
   --total-executor-cores ${CORES} \
-  --conf spark.rpc.message.maxSize=2047
+  --conf spark.rpc.message.maxSize=2047 \
   --class ${CLASS} ${JAR} \
   -m ${MODEL} --iteration ${ITER} --batchSize ${BS} -n ${NUM_EXECUTORS}

@@ -6,7 +6,7 @@ import scopt.OptionParser
 import com.intel.analytics.zoo.common.NNContext
 import com.intel.analytics.zoo.pipeline.inference.InferenceModel
 import com.intel.analytics.zoo.example.inference.PerfUtils.{time, get_throughput}
-
+import sys.env
 import org.apache.spark.util.DoubleAccumulator
 
 
