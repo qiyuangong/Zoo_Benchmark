@@ -1,10 +1,10 @@
 
-package com.intel.analytics.zoo.example.inference
+package com.intel.analytics.zoo.benchmark.inference
 
 import com.intel.analytics.bigdl.tensor.Tensor
 import com.intel.analytics.bigdl.utils.Engine
 import com.intel.analytics.zoo.pipeline.inference.InferenceModel
-import com.intel.analytics.zoo.example.inference.PerfUtils.{time, get_throughput}
+import com.intel.analytics.zoo.benchmark.inference.PerfUtils.{time, get_throughput}
 import org.apache.log4j.Logger
 import scopt.OptionParser
 

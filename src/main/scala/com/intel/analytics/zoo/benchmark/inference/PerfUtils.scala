@@ -1,4 +1,4 @@
-package com.intel.analytics.zoo.example.inference
+package com.intel.analytics.zoo.benchmark.inference
 import org.apache.log4j.Logger
 
 object PerfUtils {

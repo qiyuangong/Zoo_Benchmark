@@ -1,11 +1,11 @@
-package com.intel.analytics.zoo.example.inference
+package com.intel.analytics.zoo.benchmark.inference
 
 import com.intel.analytics.bigdl.tensor.Tensor
 import org.apache.log4j.Logger
 import scopt.OptionParser
 import com.intel.analytics.zoo.common.NNContext
 import com.intel.analytics.zoo.pipeline.inference.InferenceModel
-import com.intel.analytics.zoo.example.inference.PerfUtils.{time, get_throughput}
+import com.intel.analytics.zoo.benchmark.inference.PerfUtils.{time, get_throughput}
 import sys.env
 import org.apache.spark.util.DoubleAccumulator
 

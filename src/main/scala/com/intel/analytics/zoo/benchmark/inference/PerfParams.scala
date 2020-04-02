@@ -1,4 +1,4 @@
-package com.intel.analytics.zoo.example.inference
+package com.intel.analytics.zoo.benchmark.inference
 
 
 case class PerfParams (

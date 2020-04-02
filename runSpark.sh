@@ -76,7 +76,7 @@ export ZOO_NUM_MKLTHREADS=$((CORES/NUM_EXECUTORS))
 CLASS=com.intel.analytics.zoo.benchmark.inference.OpenVINOSparkPerf
 
 # for maven
-JAR=target/benchmark-0.1.0-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
