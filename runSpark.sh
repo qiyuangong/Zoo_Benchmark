@@ -8,7 +8,7 @@ CORES=$(($(nproc) / HYPER))
 
 if [[ -z "${KMP_AFFINITY}" ]]; then
   KMP_AFFINITY=granularity=fine,compact
-  if [[ $HYPER==2 ]]; then
+  if [[ $HYPER -eq 2 ]]; then
     KMP_AFFINITY=${KMP_AFFINITY},1,0
   fi
 fi
