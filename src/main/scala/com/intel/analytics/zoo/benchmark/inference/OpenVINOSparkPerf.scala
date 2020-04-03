@@ -60,6 +60,8 @@ object OpenVINOSparkPerf {
         val localModel = bcModel.value
         // Batch inference
         val ps = System.nanoTime()
+        println(System.getProperty("bigdl.engineType", "blas").toString)
+
         localModel.doPredict(b)
         val predictTime = (System.nanoTime() - ps) / 1e6
         accPredict.add(predictTime)
