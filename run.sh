@@ -79,7 +79,7 @@ case $TYPE in
   "ov" | "OV")
     echo "Analytics-Zoo with OpenVINO"
     CLASS=com.intel.analytics.zoo.benchmark.inference.OpenVINOPerf
-    #export OMP_NUM_THREADS=${CORES}
+    export OMP_NUM_THREADS=${CORES}
     export KMP_BLOCKTIME=20
     ;;
 
@@ -95,3 +95,4 @@ esac
 JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
 
 java ${OPTIONS} -cp ${JAR} ${CLASS} -m ${MODEL} --iteration ${ITER} --batchSize ${BS} ${PARM}
+

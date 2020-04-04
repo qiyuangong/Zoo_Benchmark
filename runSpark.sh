@@ -16,13 +16,14 @@ echo "Core number ${CORES}"
 
 #export LD_LIBRARY_PATH=./openvino
 
-# export SPARK_HOME=./spark-2.3.3-bin-hadoop2.7
+# export SPARK_HOME=~/spark-2.4.3-bin-hadoop2.7
 export ANALYTICS_ZOO_HOME=~/zoo-bin
 
 export MASTER="spark://localhost:7077"
 
+
+export ZOO_NUM_MKLTHREADS=$((CORES/NUM_EXECUTORS))
 #export OMP_NUM_THREADS=${CORES}
-#export OMP_PROC_BIND=spread
 export KMP_AFFINITY=disabled
 #export KMP_AFFINITY=verbose,granularity=fine,compact,1,0
 #export KMP_AFFINITY=verbose,granularity=fine
@@ -71,12 +72,11 @@ then
     PARAMS="$5"
 fi
 
-export ZOO_NUM_MKLTHREADS=$((CORES/NUM_EXECUTORS))
 
 CLASS=com.intel.analytics.zoo.benchmark.inference.OpenVINOSparkPerf
 
 # for maven
-JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/benchmark-0.2.0-SNAPSHOT.jar
 
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
