@@ -16,19 +16,16 @@ echo "Core number ${CORES}"
 
 #export LD_LIBRARY_PATH=./openvino
 
-# export SPARK_HOME=~/spark-2.4.3-bin-hadoop2.7
+export SPARK_HOME=~/spark-2.4.3-bin-hadoop2.7
 export ANALYTICS_ZOO_HOME=~/zoo-bin
-
 export MASTER="spark://localhost:7077"
 
-
+export KMP_AFFINITY=${KMP_AFFINITY}
 export ZOO_NUM_MKLTHREADS=$((CORES/NUM_EXECUTORS))
 #export OMP_NUM_THREADS=${CORES}
-export KMP_AFFINITY=disabled
-#export KMP_AFFINITY=verbose,granularity=fine,compact,1,0
-#export KMP_AFFINITY=verbose,granularity=fine
+# export KMP_AFFINITY=disabled
 export KMP_BLOCKTIME=20
-export KMP_SETTING=1
+# export KMP_SETTING=1
 ITER=100
 NUM_EXECUTORS=1
 
