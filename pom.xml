@@ -15,7 +15,7 @@
 	<spark.major.version>2.4</spark.major.version>
 	<spark.version>2.4.3</spark.version>
 	<scala.major.version>2.11</scala.major.version>
-	<scala.version>2.11.8</scala.version>
+	<scala.version>2.11.12</scala.version>
     </properties>
 
     <repositories>
