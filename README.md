@@ -2,7 +2,7 @@
 
 This repos has been merged into [Analytics Zoo](https://github.com/intel-analytics/analytics-zoo). Pls refer to [Analytics Zoo Benchmark](https://github.com/intel-analytics/analytics-zoo/tree/master/apps/benchmark) for more details.
 
-This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet, TorchNet and OpenVINO backend. Currently, it supports image classification inference.
+This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet, TorchNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
 
 The run.sh gives an example of how to use this project. You can modify the batch size, iteration, model path and quantize or not.
 
@@ -39,10 +39,11 @@ usage:
 
 `bash run.sh bigdl analytics-zoo_resnet-50_imagenet_0.1.0.model 10 64`
 
+Note that for `TFnet`, you should give model dir path for `-m`.
+
 ## Usage for Spark OpenVINO Benchmark
 
 Create random data in multiple partitions, then running benchmark with multiple executors.
-
 
 Default configurtion:
 
