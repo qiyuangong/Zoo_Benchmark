@@ -39,7 +39,7 @@ object BigDLPerf {
     val totalTimeUsed = System.nanoTime() - predictStart
     val totalThroughput = "%.2f".format(params.batchSize * params.iteration.toFloat / (totalTimeUsed / 1e9))
     logger.info(s"*****************************************************")
-    logger.info(s"Average throughput of ${params.batchSize} iteration is " +
+    logger.info(s"Average throughput of ${params.iteration} iteration is " +
       s"$totalThroughput FPS")
   }
 
