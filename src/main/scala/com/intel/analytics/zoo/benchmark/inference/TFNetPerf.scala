@@ -24,7 +24,14 @@ object TFNetPerf {
     time(net.forward(input), get_throughput(params.batchSize), 10, false)
 
     // do the true performance
+    // Benchmark start
+    val predictStart = System.nanoTime()
     time(net.forward(input), get_throughput(params.batchSize), params.iteration, true)
+    val totalTimeUsed = System.nanoTime() - predictStart
+    val totalThroughput = "%.2f".format(params.batchSize * params.iteration.toFloat / (totalTimeUsed / 1e9))
+    logger.info(s"*****************************************************")
+    logger.info(s"Average throughput of ${params.iteration} iteration is " +
+      s"$totalThroughput FPS")
   }
 
 
