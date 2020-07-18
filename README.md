@@ -34,12 +34,23 @@ usage:
             bigdl \\
             /path/model \\
             100 \\
-            32"
+            32
 ```
 
-`bash run.sh bigdl analytics-zoo_resnet-50_imagenet_0.1.0.model 10 64`
+```bash
+# bigl mkldnn
+bash run.sh bigdl bigdl.model 10 64
+# bigdl blas
+bash run.sh bigdlblas bigdl.model 10 64
+# openvino
+./run.sh ov openvino.xml 10 64
+# Torch
+./run.sh torch torch.pt 10 64
+# TensorFlow
+./run.sh tf ./tf_net/ 10 64
+```
 
-Note that for `TFnet`, you should give model dir path for `-m`.
+Note that for `TFnet`, you should give model dir path for model path.
 
 ## Usage for Spark OpenVINO Benchmark
 
