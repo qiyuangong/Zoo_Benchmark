@@ -23,6 +23,11 @@ Build jar with following command:
 
 ## Usage for Pure JAVA Benchmark
 
+Requirements:
+
+1. JAVA (JDK-8 or JDK-11)
+2. Maven
+
 ```shell
 usage:
        1. type, tf, torch, bigdl, bigdlblas and ov, e,g., bigdl
@@ -53,6 +58,12 @@ bash run.sh bigdlblas bigdl.model 10 64
 Note that for `TFnet`, you should give model dir path for model path.
 
 ## Usage for Spark OpenVINO Benchmark
+
+Requirements:
+
+1. JAVA (JDK-8 or JDK-11)
+2. Maven
+3. Spark 2.4.3
 
 Create random data in multiple partitions, then running benchmark with multiple executors.
 
