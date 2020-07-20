@@ -43,15 +43,15 @@ usage:
 ```
 
 ```bash
-# bigl mkldnn
+# bigl mkldnn (oneDNN)
 bash run.sh bigdl bigdl.model 10 64
-# bigdl blas
+# bigdl blas (MKLBLAS)
 bash run.sh bigdlblas bigdl.model 10 64
-# openvino
+# openvino (MKLDNN)
 ./run.sh ov openvino.xml 10 64
 # Torch
 ./run.sh torch torch.pt 10 64
-# TensorFlow
+# TensorFlow (MKLDNN)
 ./run.sh tf ./tf_net/ 10 64
 ```
 
