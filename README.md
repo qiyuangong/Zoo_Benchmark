@@ -4,7 +4,7 @@ This repos has been merged into [Analytics Zoo](https://github.com/intel-analyti
 
 This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet, TorchNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
 
-The run.sh gives an example of how to use this project. You can modify the batch size, iteration, model path and quantize or not.
+The `run.sh` gives an example of how to use this project. You can modify batch size, iteration, model path and quantize or not.
 
 ## Model Zoo
 
@@ -52,7 +52,7 @@ bash run.sh bigdlblas bigdl.model 10 64
 # Torch
 ./run.sh torch torch.pt 10 64
 # TensorFlow (MKLDNN)
-./run.sh tf ./tf_net/ 10 64
+./run.sh tf ./tf_net 10 64
 ```
 
 Note that for `TFnet`, you should give model dir path for model path.
