@@ -1,10 +1,20 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # debug flag
 #set -x
 
-HYPER=`lscpu |grep "Thread(s) per core"|awk '{print $4}'`
-CORES=$(($(nproc) / HYPER))
+HYPER=1
+if command -v lscpu &> /dev/null
+then
+    HYPER=`lscpu |grep "Thread(s) per core"|awk '{print $4}'`
+fi
+
+CORES=1
+if command -v nproc &> /dev/null
+then
+    CORES=$(($(nproc) / HYPER))
+fi
+
 
 if [[ -z "${KMP_AFFINITY}" ]]; then
   KMP_AFFINITY=granularity=fine,compact
@@ -92,7 +102,7 @@ esac
 
 
 # for maven
-JAR=target/benchmark-0.2.0-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/benchmark-0.3.0-SNAPSHOT-jar-with-dependencies.jar
 
 java ${OPTIONS} -cp ${JAR} ${CLASS} -m ${MODEL} --iteration ${ITER} --batchSize ${BS} ${PARM}
 
