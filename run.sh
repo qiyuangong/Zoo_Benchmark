@@ -68,12 +68,6 @@ case $TYPE in
     CLASS=com.intel.analytics.zoo.benchmark.inference.TFNetPerf
     ;;
 
-  "torch" | "TORCH")
-    echo "Analytics-Zoo with PyTorch"
-    CLASS=com.intel.analytics.zoo.benchmark.inference.TorchNetPerf
-    export OMP_NUM_THREADS=${CORES}
-    ;;
-
   "bigdl" | "BIGDL")
     echo "Analytics-Zoo with BigDL MKLDNN"
     CLASS=com.intel.analytics.zoo.benchmark.inference.BigDLPerf
