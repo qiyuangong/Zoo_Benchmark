@@ -12,10 +12,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bigdl.version>0.12.1</bigdl.version>
-	<spark.major.version>2.4</spark.major.version>
-	<spark.version>2.4.3</spark.version>
-	<scala.major.version>2.11</scala.major.version>
-	<scala.version>2.11.12</scala.version>
+        <!--bigdl.version>0.13.0-SNAPSHOT</bigdl.version-->
+        <analytics.zoo.version>0.9.0</analytics.zoo.version>
+        <!--analytics.zoo.version>0.10.0-SNAPSHOT</analytics.zoo.version-->
+        <spark.major.version>2.4</spark.major.version>
+        <spark.version>2.4.3</spark.version>
+        <scala.major.version>2.11</scala.major.version>
+        <scala.version>2.11.12</scala.version>
     </properties>
 
     <repositories>
@@ -58,12 +61,12 @@
         <dependency>
             <groupId>com.intel.analytics.zoo</groupId>
             <artifactId>analytics-zoo-bigdl_${bigdl.version}-spark_${spark.version}</artifactId>
-            <version>0.10.0-SNAPSHOT</version>
+            <version>${analytics.zoo.version}</version>
         </dependency>
         <dependency>
             <groupId>com.intel.analytics.zoo</groupId>
             <artifactId>zoo-core-dist-all</artifactId>
-            <version>0.10.0-SNAPSHOT</version>
+            <version>${analytics.zoo.version}</version>
         </dependency>
     </dependencies>
 

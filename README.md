@@ -2,7 +2,7 @@
 
 This repos has been merged into [Analytics Zoo](https://github.com/intel-analytics/analytics-zoo). Pls refer to [Analytics Zoo Benchmark](https://github.com/intel-analytics/analytics-zoo/tree/master/apps/benchmark) for more details.
 
-This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet, TorchNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
+This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
 
 The `run.sh` gives an example of how to use this project. You can modify batch size, iteration, model path and quantize or not.
 
@@ -12,8 +12,7 @@ Model Zoo & Links
 
 1. [Analytics-Zoo & BigDL](https://analytics-zoo.github.io/master/#ProgrammingGuide/image-classification/#download-link)
 2. [TensorFlow](https://github.com/tensorflow/models/tree/master/research/slim)
-3. [PyTorch](https://pytorch.org/docs/stable/torchvision/models.html)
-4. [OpenVINO](https://docs.openvinotoolkit.org/2018_R5/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html)
+3. [OpenVINO](https://docs.openvinotoolkit.org/2018_R5/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html)
 
 ## How to build
 
@@ -30,7 +29,7 @@ Requirements:
 
 ```shell
 usage:
-       1. type, tf, torch, bigdl, bigdlblas and ov, e,g., bigdl
+       1. type, tf, bigdl, bigdlblas and ov, e,g., bigdl
        2. Model path, e.g., *.model, *.xml
        3. Iteration, e.g., 100
        4. Batch Size, e.g., 32
@@ -49,8 +48,6 @@ bash run.sh bigdl bigdl.model 10 64
 bash run.sh bigdlblas bigdl.model 10 64
 # openvino (MKLDNN)
 ./run.sh ov openvino.xml 10 64
-# Torch
-./run.sh torch torch.pt 10 64
 # TensorFlow (MKLDNN)
 ./run.sh tf ./tf_net 10 64
 ```

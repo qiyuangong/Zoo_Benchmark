@@ -34,7 +34,7 @@ export KMP_AFFINITY=verbose,granularity=fine,compact
 usage()
 {
     echo "usage:
-       1. type, tf, torch, bigdl, bigdlblas or ov, e,g., bigdl
+       1. type, tf, bigdl, bigdlblas or ov, e,g., bigdl
        2. Model path, e.g., *.model, *.xml
        3. Iteration, e.g., 100
        4. Batch Size, e.g., 32
