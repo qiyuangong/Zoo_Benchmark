@@ -96,7 +96,7 @@ esac
 
 
 # for maven
-JAR=target/benchmark-0.3.0-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/benchmark-0.3.1-SNAPSHOT-jar-with-dependencies.jar
 
 java ${OPTIONS} -cp ${JAR} ${CLASS} -m ${MODEL} --iteration ${ITER} --batchSize ${BS} ${PARM}
 

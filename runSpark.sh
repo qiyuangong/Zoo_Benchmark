@@ -73,7 +73,7 @@ fi
 CLASS=com.intel.analytics.zoo.benchmark.inference.OpenVINOSparkPerf
 
 # for maven
-JAR=target/benchmark-0.2.0-SNAPSHOT.jar
+JAR=target/benchmark-0.3.1-SNAPSHOT.jar
 
 ${ANALYTICS_ZOO_HOME}/bin/spark-submit-scala-with-zoo.sh \
   --master ${MASTER} \
