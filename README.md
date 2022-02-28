@@ -2,7 +2,7 @@
 
 This repos has been merged into [Analytics Zoo](https://github.com/intel-analytics/analytics-zoo). Pls refer to [Analytics Zoo Benchmark](https://github.com/intel-analytics/analytics-zoo/tree/master/apps/benchmark) for more details.
 
-This is a simple project to measure the performance of Analytics-Zoo with BigDL, TFNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
+This is a simple project to measure the performance of Analytics-Zoo (0.12.0-SNAPSHOT) with BigDL (0.13.1-SNAPSHOT), TFNet and OpenVINO backend. Currently, it only supports image classification inference benchmark.
 
 The `run.sh` gives an example of how to use this project. You can modify batch size, iteration, model path and quantize or not.
 
@@ -60,7 +60,7 @@ Requirements:
 
 1. JAVA (JDK-8 or JDK-11)
 2. Maven
-3. Spark 2.4.3
+3. Spark 2.4.6
 
 Create random data in multiple partitions, then running benchmark with multiple executors.
 
