@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bigdl.version>0.12.2-SNAPSHOT</bigdl.version>
+        <bigdl.version>0.12.2</bigdl.version>
         <!--bigdl.version>0.13.0-SNAPSHOT</bigdl.version-->
         <analytics.zoo.version>0.10.0</analytics.zoo.version>
         <!--analytics.zoo.version>0.11.0-SNAPSHOT</analytics.zoo.version-->

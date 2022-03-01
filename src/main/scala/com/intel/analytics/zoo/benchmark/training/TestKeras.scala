@@ -12,6 +12,8 @@ import org.apache.log4j.Logger
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
+import com.intel.analytics.bigdl.tensor.TensorNumericMath.TensorNumeric.NumericFloat
+
 
 object TestKeras {
 
@@ -60,11 +62,11 @@ object TestKeras {
     val labels = Array("Iris-setosa", "Iris-versicolor", "Iris-virginica")
     val labelCol = "class"
     val featureCols = Array("sepal_len", "sepal_wid", "petal_len", "petal_wid")
-    val (trainDF, validDF, evalDF) = dataset.randomSplit(Array(0.8, 0.1, 0.1), 31)
+    val Array(trainDF, validDF, evalDF) = dataset.randomSplit(Array(0.8, 0.1, 0.1), 31)
 
     val trainRDD = prepareDatasetForFitting(trainDF, featureCols, labelCol, labels)
     val validRDD = prepareDatasetForFitting(validDF, featureCols, labelCol, labels)
-    val evalRDD = prepareDatasetForFitting(evalDF, labelCol, featureCols)
+    val evalRDD = prepareDatasetForFitting(evalDF, featureCols, labelCol, labels)
 
 
     val dimInput = 4
@@ -79,7 +81,7 @@ object TestKeras {
     val loss = BCECriterion[Float]()
     val metrics = List[ValidationMethod[Float]](new Top1Accuracy[Float]())
 
-    model.compile(optimizer, loss, metrics)
+    model.compile(optimizer, loss)
     model.fit(trainRDD, 64, 10, validRDD)
 
   }
