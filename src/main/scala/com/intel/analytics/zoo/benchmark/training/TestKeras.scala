@@ -13,6 +13,13 @@ import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import com.intel.analytics.bigdl.numeric.NumericFloat
+import scopt.OptionParser
+
+case class TestParams (
+                        batchSize: Int = 16,
+                        epoch: Int = 10,
+                        path: String = "iris.csv"
+                      )
 
 
 object TestKeras {
@@ -21,6 +28,7 @@ object TestKeras {
 
   def main(argv: Array[String]): Unit = {
 
+    val params = parser.parse(argv, new TestParams).get
     def setBigDLConf(conf: SparkConf): SparkConf = {
       conf.set("spark.shuffle.reduceLocality.enabled", "false")
         .set("spark.shuffle.blockTransferService", "nio")
@@ -82,9 +90,22 @@ object TestKeras {
     val metrics = Array[ValidationMethod[Float]](new Top1Accuracy[Float]())
 
     model.compile(optimizer, loss, metrics)
-    model.fit(trainRDD, 36, 10, validRDD)
+    model.fit(trainRDD, params.batchSize, params.epoch, validRDD)
 
   }
 
+  val parser: OptionParser[TestParams] = new OptionParser[TestParams]("TestKeras") {
+    opt[String]('p', "path")
+      .text("path of iris.csv")
+      .action((v, p) => p.copy(path = v))
+
+    opt[Int]('b', "batchSize")
+      .text("Batch size of input data")
+      .action((v, p) => p.copy(batchSize = v))
+
+    opt[Int]('e', "epoch")
+      .text("Epoch for training")
+      .action((v, p) => p.copy(epoch = v))
+  }
 
 }
