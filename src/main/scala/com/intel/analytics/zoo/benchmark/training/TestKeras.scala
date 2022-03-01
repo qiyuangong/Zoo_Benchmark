@@ -64,7 +64,8 @@ object TestKeras {
       }
     }
 
-    val path = getClass.getClassLoader.getResource("iris.csv").toString
+    // val path = getClass.getClassLoader.getResource("iris.csv").toString
+    val path = params.path
 
     val dataset = spark.read.option("header", true).option("inferSchema", true).csv(path)
 
