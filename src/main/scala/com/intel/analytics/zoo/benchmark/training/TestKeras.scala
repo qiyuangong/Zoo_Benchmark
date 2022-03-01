@@ -68,7 +68,6 @@ object TestKeras {
     val validRDD = prepareDatasetForFitting(validDF, featureCols, labelCol, labels)
     val evalRDD = prepareDatasetForFitting(evalDF, featureCols, labelCol, labels)
 
-
     val dimInput = 4
     val dimOutput = 3
     val nHidden = 100
