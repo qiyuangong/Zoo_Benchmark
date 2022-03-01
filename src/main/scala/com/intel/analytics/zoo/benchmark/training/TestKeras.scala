@@ -2,7 +2,7 @@
 package com.intel.analytics.zoo.benchmark.training
 
 import com.intel.analytics.bigdl.dataset.Sample
-import com.intel.analytics.bigdl.nn.BCECriterion
+import com.intel.analytics.bigdl.nn.{BCECriterion, CrossEntropyCriterion}
 import com.intel.analytics.bigdl.nn.keras.{Dense, Sequential}
 import com.intel.analytics.bigdl.optim.{SGD, Top1Accuracy, ValidationMethod}
 import com.intel.analytics.bigdl.tensor.Tensor
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import com.intel.analytics.bigdl.tensor.TensorNumericMath.TensorNumeric.NumericFloat
+import com.intel.analytics.bigdl.numeric.NumericFloat
 
 
 object TestKeras {
@@ -27,6 +27,8 @@ object TestKeras {
         .set("spark.scheduler.minRegisteredResourcesRatio", "1.0")
         .set("spark.scheduler.maxRegisteredResourcesWaitingTime", "3600s")
         .set("spark.speculation", "false")
+        .setAppName("analytics-zoo-demo")
+        .setMaster("local[*]")
       val driverCores = conf.get("spark.driver.cores", "0").toInt                        // in my test this is 1
       val executorCores = conf.get("spark.executor.cores", "0").toInt              // in my test this is 1
       val executorInstances = conf.get("spark.executor.instances", "0").toInt // in my test this is 1
@@ -34,11 +36,12 @@ object TestKeras {
       logger.info("Updating Spark configuration spark.cores.max={}" + maxCores)
       conf.set("spark.cores.max", maxCores)
     }
-
     val conf = setBigDLConf(new SparkConf())
+    val sc = NNContext.initNNContext(conf)
+    val spark = SparkSession.builder().config(conf).getOrCreate()
+
     // Disable redirecting logs of Spark and BigDL
     System.setProperty("bigdl.utils.LoggerFilter.disable", "true")
-    NNContext.initNNContext(conf)
 
     def prepareDatasetForFitting(df: DataFrame, featureColumns: Array[String], labelColumn: String, labels: Array[String]): RDD[Sample[Float]] = {
       val labelIndex = df.columns.indexOf(labelColumn)
@@ -52,8 +55,6 @@ object TestKeras {
         Sample[Float](featureTensor, labelTensor)
       }
     }
-    val spark = SparkSession.builder().appName("analytics-zoo-demo").master("local[*]").getOrCreate()
-
 
     val path = getClass.getClassLoader.getResource("iris.csv").toString
 
@@ -77,11 +78,11 @@ object TestKeras {
     model.add(Dense[Float](dimOutput, activation = "softmax").setName("fc_3"))
 
     val optimizer = new SGD[Float](0.001)
-    val loss = BCECriterion[Float]()
-    val metrics = List[ValidationMethod[Float]](new Top1Accuracy[Float]())
+    val loss = CrossEntropyCriterion[Float]()
+    val metrics = Array[ValidationMethod[Float]](new Top1Accuracy[Float]())
 
-    model.compile(optimizer, loss)
-    model.fit(trainRDD, 64, 10, validRDD)
+    model.compile(optimizer, loss, metrics)
+    model.fit(trainRDD, 36, 10, validRDD)
 
   }
 
