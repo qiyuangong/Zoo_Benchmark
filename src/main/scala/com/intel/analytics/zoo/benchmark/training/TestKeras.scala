@@ -2,8 +2,8 @@
 package com.intel.analytics.zoo.benchmark.training
 
 import com.intel.analytics.bigdl.dataset.Sample
-import com.intel.analytics.bigdl.nn.keras.Dense
-import com.intel.analytics.bigdl.nn.{BCECriterion, CrossEntropyCriterion, Module, Sequential, StaticGraph}
+import com.intel.analytics.bigdl.nn.BCECriterion
+import com.intel.analytics.bigdl.nn.keras.{Dense, Sequential}
 import com.intel.analytics.bigdl.optim.{SGD, Top1Accuracy, ValidationMethod}
 import com.intel.analytics.bigdl.tensor.Tensor
 import com.intel.analytics.bigdl.utils.{Engine, Shape}
@@ -80,7 +80,7 @@ object TestKeras {
     val metrics = List[ValidationMethod[Float]](new Top1Accuracy[Float]())
 
     model.compile(optimizer, loss, metrics)
-    model.fit(trainRDD, trainBatchSize, numEpochs, validRDD)
+    model.fit(trainRDD, 64, 10, validRDD)
 
   }
 
